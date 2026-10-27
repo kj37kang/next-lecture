@@ -1,0 +1,5 @@
+### 민지의 프로필
+GET http://localhost:3000/api/profiles/minji
+
+### 없는 사람의 프로필
+GET http://localhost:3000/api/profiles/kimchi
