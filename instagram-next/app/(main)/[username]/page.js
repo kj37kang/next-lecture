@@ -1,6 +1,6 @@
 // ~/instagram-next/app/[username]/page.js
+import { notFound } from "next/navigation";
 import styles from "@/components/ProfilePage.module.scss";
-import stateStyles from "@/components/StatusMessage.module.scss";
 import ProfileImage from "@/components/ProfileImage.jsx";
 import { profiles } from "@/data/profiles.js";
 
@@ -8,10 +8,13 @@ export const instant = false;
 
 export default async function ProfilePage({ params }) {
   const { username } = await params;
+
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+
   const profile = profiles.find((item) => item.username === username);
 
   if (profile === undefined) {
-    return<p className={stateStyles.errorText}>{username} 님의 프로필이 없어요.</p>;
+    notFound();
   }
 
   return (
