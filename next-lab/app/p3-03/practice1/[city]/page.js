@@ -1,9 +1,8 @@
-export default function Page({params}) {
-  const city = params;
+// ~/next-lab/app/p3-03/practice1/[city]/page.js
+export const instant = false;
 
-  return (
-    <>
-      <h2>{city} 날씨에요</h2>
-    </>
-  )
+export default async function CityPage({ params }) {
+  const { city } = await params;
+
+  return<h2 className="p-6 text-xl font-semibold">{city} 날씨예요</h2>;
 }
