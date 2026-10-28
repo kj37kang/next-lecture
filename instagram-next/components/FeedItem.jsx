@@ -1,4 +1,5 @@
 // ~/instagram-react/src/components/FeedItem.jsx
+import Image from "next/image";
 import styles from "./FeedItem.module.scss";
 import carousel from "./Carousel.module.scss";
 import FeedItemHeader from "./FeedItemHeader.jsx";
@@ -18,6 +19,7 @@ const FeedItem = ({
   createdAt,
   likeCount,
   commentCount,
+  isFirst,
 }) => {
   return (
     <article className={styles.post}>
@@ -29,7 +31,13 @@ const FeedItem = ({
 
       <div className={styles.imageContainer}>
         <div className={carousel.carouselSlide}>
-          <img src={postImage} alt={postAlt} />
+          <Image
+            src={postImage}
+            alt={postAlt}
+            width={600}
+            height={600}
+            loading={isFirst ? "eager" : "lazy"}
+          />
         </div>
       </div>
 
