@@ -1,12 +1,11 @@
-// ~/next-lab/app/p3-06/practice2/[city]/page.js
 export const instant = false;
 
 export function generateStaticParams() {
-  return [{ city: "seoul" }, { city: "busan" }, { city: "gwangju" }];
+  return [{ city: 'seoul' }, { city: 'busan' }, { city: 'gwangju' }];
 }
 
 export default async function CityPage({ params }) {
   const { city } = await params;
 
-  return<h2 className="p-6 text-xl font-semibold">{city} 날씨예요</h2>;
+  return <h2 className='p-6 text-xl font-semibold'>{city} 날씨예요</h2>;
 }

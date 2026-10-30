@@ -1,5 +1,5 @@
 // ~/instagram-next/components/FeedSkeleton.jsx
-import styles from "./FeedList.module.scss";
+import styles from './FeedList.module.scss';
 
 const FeedSkeleton = () => (
   <div className={styles.skeletonPost}>

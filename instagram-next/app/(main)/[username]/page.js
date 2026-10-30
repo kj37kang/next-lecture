@@ -1,14 +1,10 @@
 // ~/instagram-next/app/(main)/[username]/page.js
-import { notFound, redirect } from "next/navigation";
-import styles from "@/components/ProfilePage.module.scss";
-import ProfileImage from "@/components/ProfileImage.jsx";
-import { profiles } from "@/data/profiles.js";
+import { notFound, redirect } from 'next/navigation';
+import styles from '@/components/ProfilePage.module.scss';
+import ProfileImage from '@/components/ProfileImage.jsx';
+import { profiles, getProfile } from '@/data/profiles.js';
 
 export const instant = false;
-
-function findProfile(username) {
-  return profiles.find((item) => item.username === username);
-}
 
 export function generateStaticParams() {
   return profiles.map((profile) => ({ username: profile.username }));
@@ -16,7 +12,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { username } = await params;
-  const profile = findProfile(username);
+  const profile = await getProfile(username);
 
   if (profile === undefined) {
     return {};
@@ -24,7 +20,7 @@ export async function generateMetadata({ params }) {
 
   return {
     title: `${profile.name}(@${profile.username})`,
-    description: `게시물${profile.postCount}개, 팔로워${profile.followerCount}명, 팔로우${profile.followingCount}명`,
+    description: `게시물 ${profile.postCount}개, 팔로워 ${profile.followerCount}명, 팔로우 ${profile.followingCount}명`,
   };
 }
 
@@ -35,7 +31,7 @@ export default async function ProfilePage({ params }) {
     redirect(`/${username.toLowerCase()}`);
   }
 
-  const profile = profiles.find((item) => item.username === username);
+  const profile = await getProfile(username);
 
   if (profile === undefined) {
     notFound();
@@ -56,13 +52,20 @@ export default async function ProfilePage({ params }) {
 
           <ul className={styles.profileStats}>
             <li>
-              게시물 <span className={styles.statsNumber}>{profile.postCount}</span>
+              게시물{' '}
+              <span className={styles.statsNumber}>{profile.postCount}</span>
             </li>
             <li>
-              팔로워 <span className={styles.statsNumber}>{profile.followerCount}</span>
+              팔로워{' '}
+              <span className={styles.statsNumber}>
+                {profile.followerCount}
+              </span>
             </li>
             <li>
-              팔로우 <span className={styles.statsNumber}>{profile.followingCount}</span>
+              팔로우{' '}
+              <span className={styles.statsNumber}>
+                {profile.followingCount}
+              </span>
             </li>
           </ul>
 

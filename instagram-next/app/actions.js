@@ -1,8 +1,8 @@
 // ~/instagram-next/app/actions.js
-"use server";
+'use server';
 
-import { refresh } from "next/cache";
-import { posts } from "@/data/posts.js";
+import { revalidatePath } from 'next/cache';
+import { posts } from '@/data/posts.js';
 
 function findPost(postId) {
   const post = posts.find((item) => item.id === postId);
@@ -22,7 +22,7 @@ export async function likePost(postId) {
     post.likeCount += 1;
   }
 
-  refresh();
+  revalidatePath('/');
 }
 
 export async function unlikePost(postId) {
@@ -33,5 +33,5 @@ export async function unlikePost(postId) {
     post.likeCount -= 1;
   }
 
-  refresh();
+  revalidatePath('/');
 }

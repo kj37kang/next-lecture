@@ -1,3 +1,4 @@
+// ~/instagram-react/src/utils/timeAgo.js
 // 서버가 보낸 시각을 「12분 전」 같은 글자로 바꿔요.
 export function timeAgo(createdAt) {
   const passed = Date.now() - Date.parse(createdAt);

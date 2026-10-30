@@ -1,19 +1,18 @@
 // ~/instagram-next/components/CommentForm.jsx
-import styles from "./FeedItem.module.scss";
+import styles from './FeedItem.module.scss';
 
 const CommentForm = () => {
   return (
     <form className={styles.commentForm}>
       <input
-        type="text"
-        placeholder="댓글 달기..."
+        type='text'
+        placeholder='댓글 달기...'
         className={styles.commentInput}
       />
       <button
-        type="submit"
+        type='submit'
         className={styles.commentSubmit}
-        disabled
-      >
+        disabled>
         게시
       </button>
     </form>

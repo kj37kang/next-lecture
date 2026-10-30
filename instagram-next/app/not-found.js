@@ -1,6 +1,6 @@
 // ~/instagram-next/app/not-found.js
-import Sidebar from "@/components/Sidebar.jsx";
-import styles from "@/components/StatusMessage.module.scss";
+import Sidebar from '@/components/Sidebar.jsx';
+import styles from '@/components/StatusMessage.module.scss';
 
 export default function NotFound() {
   return (

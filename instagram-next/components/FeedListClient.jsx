@@ -1,16 +1,16 @@
 // ~/instagram-next/components/FeedListClient.jsx
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import styles from "./FeedList.module.scss";
-import FeedItem from "./FeedItem.jsx";
+import { useEffect, useState } from 'react';
+import styles from './FeedList.module.scss';
+import FeedItem from './FeedItem.jsx';
 
 export default function FeedListClient() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const loadPosts = async () => {
-      const response = await fetch("/api/posts");
+      const response = await fetch('/api/posts');
       const data = await response.json();
       setPosts(data);
     };

@@ -1,8 +1,0 @@
-### 서울의 날씨
-GET http://localhost:3001/p3-04/practice1/seoul
-
-### 없는 도시의 날씨
-GET http://localhost:3001/ap3-04/practice1/daegu
-
-### 특정 금액 이하의 메뉴
-GET http://localhost:3001/ap3-04/practice2?maxPrice=5000

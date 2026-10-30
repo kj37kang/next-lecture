@@ -1,6 +1,6 @@
-// ~/instagram-next/components/ProfileImage.jsx
-import Image from "next/image";
-import styles from "./ProfileImage.module.scss";
+// ~/instagram-react/src/components/ProfileImage.jsx
+import Image from 'next/image';
+import styles from './ProfileImage.module.scss';
 
 const ProfileImage = ({ imageUrl, username }) => {
   return (
@@ -11,7 +11,7 @@ const ProfileImage = ({ imageUrl, username }) => {
           alt={`${username}의 프로필`}
           width={150}
           height={150}
-          loading="eager"
+          loading='eager'
         />
       </div>
     </div>

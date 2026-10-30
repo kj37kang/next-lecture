@@ -4,7 +4,7 @@ const nextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   images: {
-    remotePatterns: [new URL("https://picsum.photos/seed/**")],
+    remotePatterns: [new URL('https://picsum.photos/seed/**')],
   },
 };
 

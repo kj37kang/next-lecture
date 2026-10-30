@@ -1,13 +1,13 @@
 // ~/instagram-react/src/components/FeedItem.jsx
-import Image from "next/image";
-import styles from "./FeedItem.module.scss";
-import carousel from "./Carousel.module.scss";
-import FeedItemHeader from "./FeedItemHeader.jsx";
-import FeedItemActions from "./FeedItemActions.jsx";
-import FeedItemContent from "./FeedItemContent.jsx";
-import FeedItemComments from "./FeedItemComments.jsx";
-import CommentForm from "./CommentForm.jsx";
-import CommentArea from "./CommentArea.jsx";
+import styles from './FeedItem.module.scss';
+import carousel from './Carousel.module.scss';
+import FeedItemHeader from './FeedItemHeader.jsx';
+import FeedItemActions from './FeedItemActions.jsx';
+import FeedItemContent from './FeedItemContent.jsx';
+import FeedItemComments from './FeedItemComments.jsx';
+import CommentForm from './CommentForm.jsx';
+import CommentArea from './CommentArea.jsx';
+import Image from 'next/image';
 
 const FeedItem = ({
   postId,
@@ -20,7 +20,7 @@ const FeedItem = ({
   likeCount,
   liked,
   commentCount,
-  isFirst,
+  isFirst
 }) => {
   return (
     <article className={styles.post}>
@@ -37,7 +37,7 @@ const FeedItem = ({
             alt={postAlt}
             width={600}
             height={600}
-            loading={isFirst ? "eager" : "lazy"}
+            loading={isFirst ? 'eager' : 'lazy'}
           />
         </div>
       </div>

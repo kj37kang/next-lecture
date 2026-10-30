@@ -1,7 +1,7 @@
 // ~/instagram-next/app/[username]/saved/page.js
-import { notFound } from "next/navigation";
-import styles from "@/components/StatusMessage.module.scss";
-import { profiles } from "@/data/profiles.js";
+import styles from '@/components/StatusMessage.module.scss';
+import { profiles } from '@/data/profiles.js';
+import { notFound } from 'next/navigation';
 
 export const instant = false;
 

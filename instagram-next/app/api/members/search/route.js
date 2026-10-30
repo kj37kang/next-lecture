@@ -1,8 +1,8 @@
 // ~/instagram-next/app/api/members/search/route.js
-import { profiles } from "@/data/profiles.js";
+import { profiles } from '@/data/profiles.js';
 
 export function GET(request) {
-  const keyword = request.nextUrl.searchParams.get("keyword");
+  const keyword = request.nextUrl.searchParams.get('keyword');
 
   if (!keyword) {
     return Response.json([]);

@@ -1,5 +1,6 @@
-import styles from "./FeedItem.module.scss";
-import { timeAgo } from "../utils/timeAgo.js";
+// ~/instagram-next/components/FeedItemCaption.jsx
+import styles from './FeedItem.module.scss';
+import { timeAgo } from '../utils/timeAgo.js';
 
 const FeedItemCaption = ({ content, createdAt }) => {
   return (
@@ -11,3 +12,5 @@ const FeedItemCaption = ({ content, createdAt }) => {
 };
 
 export default FeedItemCaption;
+
+
