@@ -1,56 +1,12 @@
 // ~/instagram-next/components/FeedItemActions.jsx
 "use client";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FaHeart, FaRegBookmark, FaRegComment, FaRegHeart, FaRegPaperPlane } from "react-icons/fa6";
-import { MY_USER_ID } from "@/utils/me.js";
+import { useLikePost } from "@/hooks/useLikePost.js";
 import styles from "./FeedItem.module.scss";
 
-async function changeLike({ postId, liked }) {
-  const response = await fetch(`/api/posts/${postId}/likes/${MY_USER_ID}`, {
-    method: liked ? "PUT" : "DELETE",
-  });
-
-  if (!response.ok) {
-    throw new Error(`좋아요를 바꾸지 못했어요 (${response.status})`);
-  }
-
-  return response.json();
-}
-
 const FeedItemActions = ({ postId, likeCount, liked }) => {
-  const queryClient = useQueryClient();
-  const { mutate, isPending } = useMutation({
-    mutationFn: changeLike,
-    onMutate: async (variables) => {
-      await queryClient.cancelQueries({ queryKey: ["posts"] });
-      const previousPosts = queryClient.getQueryData(["posts"]);
-
-      queryClient.setQueryData(["posts"], (data) => ({
-        ...data,
-        pages: data.pages.map((page) => ({
-          ...page,
-          items: page.items.map((post) =>
-            post.id === variables.postId
-              ? { ...post, liked: variables.liked, likeCount: post.likeCount + (variables.liked ? 1 : -1) }
-              : post,
-          ),
-        })),
-      }));
-
-      return { previousPosts };
-    },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["posts"] });
-    },
-    onError: (error, variables, onMutateResult) => {
-      queryClient.setQueryData(["posts"], onMutateResult.previousPosts);
-      console.error(error);
-    },
-    onSettled: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["posts"] });
-    },
-  });
+  const { mutate, isPending } = useLikePost();
 
   return (
     <div className={styles.actions}>
