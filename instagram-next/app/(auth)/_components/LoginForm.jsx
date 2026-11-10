@@ -5,21 +5,21 @@ import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import styles from "./LoginPage.module.scss";
+import { authApi, ApiError } from "@/services/api.js";
 
-async function login(form) {
-  const response = await fetch("/api/auth/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(form),
-  });
-  const body = await response.json();
-
-  // 401 이면 서버가 보낸 문장을 그대로 에러로 던진다.
-  if (!response.ok) {
-    throw new Error(body.message);
+// 실패했을 때 보여 줄 문장은 화면이 고른다.
+function errorText(error) {
+  // 서버의 답을 받지 못했다 — fetch 가 던진 TypeError 다.
+  if (!(error instanceof ApiError)) {
+    return "서버에 연결하지 못했어요. 인터넷 연결을 확인해 주세요.";
   }
 
-  return body;
+  // 서버가 «그런 사용자는 없다» 고 답했으면 그 문장을 그대로 보여 준다.
+  if (error.status === 401) {
+    return error.message;
+  }
+
+  return "로그인하지 못했어요. 잠시 뒤에 다시 시도해 주세요.";
 }
 
 export default function LoginForm() {
@@ -32,7 +32,7 @@ export default function LoginForm() {
   });
 
   const { mutate, isPending, error, reset } = useMutation({
-    mutationFn: login,
+    mutationFn: authApi.login,
     // 로그인이 끝나면 피드로 간다.
     onSuccess: () => router.push("/"),
   });
@@ -78,7 +78,7 @@ export default function LoginForm() {
         />
       </div>
 
-      {error &&<div className={styles.errorMessage}>{error.message}</div>}
+      {error &&<div className={styles.errorMessage}>{errorText(error)}</div>}
       <button type="submit" className={styles.authButton} disabled={isDisabled}>
         {isPending ? "로그인 중..." : "로그인"}
       </button>

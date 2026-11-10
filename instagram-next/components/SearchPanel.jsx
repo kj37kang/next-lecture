@@ -7,17 +7,8 @@ import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { FaTimes } from "react-icons/fa";
 import { useUiStore } from "@/stores/useUiStore.js";
+import { memberApi } from "@/services/api.js";
 import styles from "./SearchPanel.module.scss";
-
-async function searchMembers(keyword) {
-  const response = await fetch(`/api/members/search?keyword=${keyword}`);
-
-  if (!response.ok) {
-    throw new Error(`사람을 찾지 못했어요 (${response.status})`);
-  }
-
-  return response.json();
-}
 
 export default function SearchPanel() {
   const isOpen = useUiStore((state) => state.isSearchOpen);
@@ -26,7 +17,7 @@ export default function SearchPanel() {
   const [keyword, setKeyword] = useState("");
   const { data, isPending, error } = useQuery({
     queryKey: ["members", keyword],
-    queryFn: () => searchMembers(keyword),
+    queryFn: () => memberApi.search(keyword),
     enabled: keyword !== "",
   });
 
