@@ -1,12 +1,13 @@
 // ~/instagram-next/app/(auth)/login/page.js
-import Image from 'next/image';
+import Image from "next/image";
 import Link from "next/link";
-import layoutStyles from '../_components/AuthLayout.module.scss';
-import styles from '../_components/LoginPage.module.scss';
-import AuthCard from '../_components/AuthCard.jsx';
+import layoutStyles from "../_components/AuthLayout.module.scss";
+import styles from "../_components/LoginPage.module.scss";
+import AuthCard from "../_components/AuthCard.jsx";
+import LoginForm from "../_components/LoginForm.jsx";
 
 export const metadata = {
-  title: '로그인',
+  title: "로그인",
 };
 
 export default function LoginPage() {
@@ -14,45 +15,21 @@ export default function LoginPage() {
     <>
       <div className={layoutStyles.authImage}>
         <Image
-          src='/phones.png'
-          alt='Instagram 앱 스크린샷'
+          src="/phones.png"
+          alt="Instagram 앱 스크린샷"
           width={842}
           height={1234}
-          // style={{ height: 'auto' }}
-          sizes='24vw'
+          sizes="24vw"
+          style={{ height: "auto" }}
           loading="eager"
         />
       </div>
 
       <div className={layoutStyles.authFormContainer}>
         <AuthCard showLogo={true}>
-          <form
-            className={styles.authForm}
-            noValidate>
-            <div className={styles.formField}>
-              <input
-                type='text'
-                name='username'
-                placeholder='전화번호, 사용자 이름 또는 이메일'
-                required
-              />
-            </div>
-            <div className={styles.formField}>
-              <input
-                type='password'
-                name='password'
-                placeholder='비밀번호'
-                required
-              />
-            </div>
-            <button
-              type='submit'
-              className={styles.authButton}
-              disabled>
-              로그인
-            </button>
-          </form>
+          <LoginForm />
         </AuthCard>
+
         <AuthCard className={styles.signupCard}>
           <p>
             계정이 없으신가요? <Link href="/signup">가입하기</Link>
