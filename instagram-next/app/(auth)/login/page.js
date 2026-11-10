@@ -5,6 +5,7 @@ import layoutStyles from "../_components/AuthLayout.module.scss";
 import styles from "../_components/LoginPage.module.scss";
 import AuthCard from "../_components/AuthCard.jsx";
 import LoginForm from "../_components/LoginForm.jsx";
+import { Suspense } from "react";
 
 export const metadata = {
   title: "로그인",
@@ -27,7 +28,9 @@ export default function LoginPage() {
 
       <div className={layoutStyles.authFormContainer}>
         <AuthCard showLogo={true}>
-          <LoginForm />
+          <Suspense>
+            <LoginForm />
+          </Suspense>
         </AuthCard>
 
         <AuthCard className={styles.signupCard}>

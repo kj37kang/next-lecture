@@ -2,14 +2,13 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import styles from "./LoginPage.module.scss";
 
 async function login(form) {
-  const response = await fetch("http://localhost:3000/api/auth/login", {
+  const response = await fetch("/api/auth/login", {
     method: "POST",
-    credentials: "include",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(form),
   });
@@ -25,8 +24,10 @@ async function login(form) {
 
 export default function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [form, setForm] = useState({
-    username: "",
+    // 가입하고 넘어왔으면 주소의 ?username= 으로 첫 값을 채운다.
+    username: searchParams.get("username") ?? "",
     password: "",
   });
 
