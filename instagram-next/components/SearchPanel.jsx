@@ -1,24 +1,24 @@
 // ~/instagram-next/components/SearchPanel.jsx
-"use client";
+'use client';
 
-import { useState } from "react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
-import { FaTimes } from "react-icons/fa";
-import { useUiStore } from "@/stores/useUiStore.js";
-import { memberApi } from "@/services/api.js";
-import styles from "./SearchPanel.module.scss";
+import { useState } from 'react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+import { FaTimes } from 'react-icons/fa';
+import { useUiStore } from '@/stores/useUiStore.js';
+import styles from './SearchPanel.module.scss';
+import { memberApi } from '@/services/api.js';
 
 export default function SearchPanel() {
   const isOpen = useUiStore((state) => state.isSearchOpen);
   const close = useUiStore((state) => state.closeSearch);
   const router = useRouter();
-  const [keyword, setKeyword] = useState("");
+  const [keyword, setKeyword] = useState('');
   const { data, isPending, error } = useQuery({
-    queryKey: ["members", keyword],
+    queryKey: ['members', keyword],
     queryFn: () => memberApi.search(keyword),
-    enabled: keyword !== "",
+    enabled: keyword !== '',
   });
 
   const goToProfile = (username) => {
@@ -28,11 +28,13 @@ export default function SearchPanel() {
 
   let result;
 
-  if (keyword === "") {
+  if (keyword === '') {
     result = null;
   } else if (isPending) {
     result = Array.from({ length: 5 }).map((_, i) => (
-      <div key={i} className={styles.skeletonItem}>
+      <div
+        key={i}
+        className={styles.skeletonItem}>
         <div className={styles.skeletonAvatar} />
         <div>
           <div className={styles.skeletonUsername} />
@@ -49,8 +51,7 @@ export default function SearchPanel() {
       <div
         key={member.username}
         className={styles.resultItem}
-        onClick={() => goToProfile(member.username)}
-      >
+        onClick={() => goToProfile(member.username)}>
         <div className={styles.resultAvatar}>
           <Image
             src={member.profileImage}
@@ -68,25 +69,24 @@ export default function SearchPanel() {
   }
 
   return (
-    <div className={`${styles.searchPanel} ${isOpen ? styles.open : ""}`}>
+    <div className={`${styles.searchPanel} ${isOpen ? styles.open : ''}`}>
       <div className={styles.header}>
         <h2>검색</h2>
       </div>
 
       <div className={styles.searchInputContainer}>
         <input
-          type="text"
+          type='text'
           className={styles.searchInput}
-          placeholder="검색"
+          placeholder='검색'
           value={keyword}
           onChange={(event) => setKeyword(event.target.value)}
         />
         {keyword && (
           <button
-            type="button"
+            type='button'
             className={styles.clearButton}
-            onClick={() => setKeyword("")}
-          >
+            onClick={() => setKeyword('')}>
             <FaTimes size={8} />
           </button>
         )}

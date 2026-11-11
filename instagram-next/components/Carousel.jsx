@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { FaChevronLeft, FaChevronRight, FaHeart } from "react-icons/fa6";
+import { FaChevronLeft, FaChevronRight, FaHeart } from 'react-icons/fa6';
 import styles from './Carousel.module.scss';
 
 const Carousel = ({ imageUrls, alt, isFirst, onImageDoubleClick }) => {
@@ -40,12 +40,10 @@ const Carousel = ({ imageUrls, alt, isFirst, onImageDoubleClick }) => {
               height={600}
               loading={isFirst && index === 0 ? 'eager' : 'lazy'}
             />
+            {showHeart && <FaHeart className={styles.doubleClickHeart} />}
           </div>
         ))}
       </div>
-
-      {/* 큰 하트는 움직이는 트랙이 아니라 컨테이너 안에 하나만 둔다 — 그래야 몇 번째 사진이든 가운데에 뜬다. */}
-      {showHeart &&<FaHeart className={styles.doubleClickHeart} />}
 
       {imageUrls.length > 1 && (
         <>
@@ -78,6 +76,6 @@ const Carousel = ({ imageUrls, alt, isFirst, onImageDoubleClick }) => {
       )}
     </div>
   );
-};
+};;;
 
 export default Carousel;

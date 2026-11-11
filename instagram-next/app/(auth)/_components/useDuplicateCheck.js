@@ -1,7 +1,7 @@
 // ~/instagram-next/app/(auth)/_components/useDuplicateCheck.js
-import { useQuery } from "@tanstack/react-query";
-import { useDebouncedValue } from "@/hooks/useDebouncedValue.js";
-import { authApi } from "@/services/api.js";
+import { useQuery } from '@tanstack/react-query';
+import { useDebouncedValue } from '@/hooks/useDebouncedValue.js';
+import { authApi } from '@/services/api.js';
 
 // 규칙을 통과한 값이면 서버에 «누가 이미 쓰고 있나» 를 묻는다 — 입력이 0.5초 멈춘 뒤에만.
 export function useDuplicateCheck(type, value, valid) {

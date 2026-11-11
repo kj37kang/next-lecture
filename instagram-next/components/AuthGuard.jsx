@@ -1,10 +1,10 @@
 // ~/instagram-next/components/AuthGuard.jsx
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import { useMe } from "@/hooks/useMe.js";
-import { ApiError } from "@/services/api.js";
+import { useEffect } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { useMe } from '@/hooks/useMe.js';
+import { ApiError } from '@/services/api.js';
 
 // «나는 누구»가 401(로그인이 필요해요)이면 로그인 화면으로 보낸다 — 보던 주소는 ?next= 에 싣는다.
 export default function AuthGuard() {

@@ -1,12 +1,12 @@
 // ~/instagram-next/components/QueryProvider.jsx
-"use client";
+'use client';
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 let browserQueryClient;
 
 function getQueryClient() {
-  if (typeof window === "undefined") {
+  if (typeof window === 'undefined') {
     return new QueryClient();
   }
 
@@ -18,5 +18,9 @@ function getQueryClient() {
 }
 
 export default function QueryProvider({ children }) {
-  return<QueryClientProvider client={getQueryClient()}>{children}</QueryClientProvider>;
+  return (
+    <QueryClientProvider client={getQueryClient()}>
+      {children}
+    </QueryClientProvider>
+  );
 }

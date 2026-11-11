@@ -1,14 +1,14 @@
 // ~/instagram-next/app/(auth)/login/page.js
-import Image from "next/image";
-import Link from "next/link";
-import layoutStyles from "../_components/AuthLayout.module.scss";
-import styles from "../_components/LoginPage.module.scss";
-import AuthCard from "../_components/AuthCard.jsx";
-import LoginForm from "../_components/LoginForm.jsx";
-import { Suspense } from "react";
+import layoutStyles from '../_components/AuthLayout.module.scss';
+import styles from '../_components/LoginPage.module.scss';
+import AuthCard from '../_components/AuthCard.jsx';
+import Image from 'next/image';
+import Link from 'next/link';
+import LoginForm from '../_components/LoginForm.jsx';
+import { Suspense } from 'react';
 
 export const metadata = {
-  title: "로그인",
+  title: '로그인',
 };
 
 export default function LoginPage() {
@@ -16,13 +16,13 @@ export default function LoginPage() {
     <>
       <div className={layoutStyles.authImage}>
         <Image
-          src="/phones.png"
-          alt="Instagram 앱 스크린샷"
+          src='/phones.png'
+          alt='Instagram 앱 스크린샷'
           width={842}
           height={1234}
-          sizes="24vw"
-          style={{ height: "auto" }}
-          loading="eager"
+          // style={{ height: 'auto' }}
+          sizes='24vw'
+          loading='eager'
         />
       </div>
 
@@ -35,7 +35,7 @@ export default function LoginPage() {
 
         <AuthCard className={styles.signupCard}>
           <p>
-            계정이 없으신가요? <Link href="/signup">가입하기</Link>
+            계정이 없으신가요? <Link href='/signup'>가입하기</Link>
           </p>
         </AuthCard>
       </div>

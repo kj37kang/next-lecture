@@ -1,15 +1,15 @@
 // ~/instagram-next/components/FeedList.jsx
-"use client";
+'use client';
 
-import { useEffect, useRef } from "react";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import styles from "./FeedList.module.scss";
-import stateStyles from "./StatusMessage.module.scss";
-import FeedItem from "./FeedItem.jsx";
-import FeedSkeleton from "./FeedSkeleton.jsx";
-import { MY_USER_ID } from "@/utils/me.js";
-import { postApi } from "@/services/api.js";
-import { useMe } from "@/hooks/useMe.js";
+import { useRef, useEffect } from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import styles from './FeedList.module.scss';
+import stateStyles from './StatusMessage.module.scss';
+import FeedItem from './FeedItem.jsx';
+import FeedSkeleton from './FeedSkeleton.jsx';
+
+import { postApi } from '@/services/api.js';
+import { useMe } from '@/hooks/useMe.js';
 
 const PER_PAGE = 2;
 
@@ -25,18 +25,33 @@ function getPostPage(userId, pageParam) {
 }
 
 const FeedList = () => {
+
   const { data: me } = useMe();
-  const { data, isPending, error, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteQuery({
-      // 누가 보느냐에 따라 liked 가 달라진다 — 보는 사람의 번호를 키에 넣는다.
-      queryKey: ["posts", me?.id],
-      queryFn: ({ pageParam }) => getPostPage(me.id, pageParam),
-      // 누가 보는지 알기 전에는 보내지 않는다.
-      enabled: me !== undefined,
-      initialPageParam: null,
-      getNextPageParam: (lastPage) =>
-        lastPage.hasNext ? lastPage.items[lastPage.items.length - 1].id : null,
-    });
+
+  const {
+    data,
+    isPending,
+    error,
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage,
+  } = useInfiniteQuery({
+    queryKey: ['posts', me?.id],
+    queryFn: ({ pageParam }) => getPostPage(me.id, pageParam),
+    // 누가 보는지 알기 전에는 보내지 않는다.
+    enabled: me !== undefined,
+    initialPageParam: null,
+    getNextPageParam: (lastPage) =>
+      lastPage.hasNext ? lastPage.items[lastPage.items.length - 1].id : null,
+
+    // 1. 탭 이동시 무분별한 재요청 차단
+    staleTime: 10 * 60 * 1000, // 10분간 fresh 유지
+    refetchOnWindowFocus: false, // 창 포커스 이동시 자동 refetch 비활성화
+
+    maxPages: 5, // 아무리 많이 스크롤해도 메모리에는 5페이지까지만 저장해
+  });
+
+  
 
   const loaderRef = useRef(null);
 
@@ -71,14 +86,19 @@ const FeedList = () => {
   }
 
   if (data === undefined) {
-    return<p className={stateStyles.errorText}>게시물을 불러오지 못했습니다.</p>;
+    return (
+      <p className={stateStyles.errorText}>게시물을 불러오지 못했습니다.</p>
+    );
   }
 
   const posts = data.pages.flatMap((page) => page.items);
+  
 
   return (
     <>
-      {error &&<p className={stateStyles.errorText}>게시물을 새로 받지 못했습니다.</p>}
+      {error && (
+        <p className={stateStyles.errorText}>게시물을 새로 받지 못했습니다.</p>
+      )}
       <div className={styles.feedList}>
         {posts.map((post, index) => (
           <FeedItem
@@ -98,7 +118,10 @@ const FeedList = () => {
           />
         ))}
       </div>
-      <div ref={loaderRef} className={styles.loader}>
+
+      <div
+        ref={loaderRef}
+        className={styles.loader}>
         {isFetchingNextPage && (
           <>
             <FeedSkeleton />

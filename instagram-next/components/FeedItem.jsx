@@ -4,10 +4,10 @@ import FeedItemHeader from './FeedItemHeader.jsx';
 import FeedItemActions from './FeedItemActions.jsx';
 import FeedItemContent from './FeedItemContent.jsx';
 import FeedItemComments from './FeedItemComments.jsx';
-import Carousel from "./Carousel.jsx";
 import CommentForm from './CommentForm.jsx';
 import CommentArea from './CommentArea.jsx';
-import { useLikePost } from "@/hooks/useLikePost.js";
+import Carousel from './Carousel.jsx';
+import { useLikePost } from '@/hooks/useLikePost.js';
 
 const FeedItem = ({
   postId,
@@ -21,10 +21,11 @@ const FeedItem = ({
   liked,
   commentCount,
   isFirst,
-  viewerId,
+  viewerId
 }) => {
+
+
   const { mutate, isPending } = useLikePost(viewerId);
-  const toggleLike = () => mutate({ postId, liked: !liked });
 
   // 사진을 두 번 누르는 것은 «누르기» 만 한다 — 이미 눌렀거나 보내는 중이면 보내지 않는다.
   const likeByDoubleClick = () => {
@@ -53,6 +54,7 @@ const FeedItem = ({
         postId={postId}
         likeCount={likeCount}
         liked={liked}
+        viewerId={viewerId}
       />
 
       <div className={styles.content}>
@@ -69,6 +71,6 @@ const FeedItem = ({
       </CommentArea>
     </article>
   );
-};
+};;
 
 export default FeedItem;
