@@ -1,11 +1,10 @@
 // ~/instagram-next/hooks/useLikePost.js
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { MY_USER_ID } from "@/utils/me.js";
 import { postApi } from "@/services/api.js";
 
 // liked 는 «바꾸고 싶은» 상태 — 켜려면 누르기, 끄려면 취소.
-function changeLike({ postId, liked }) {
-  return liked ? postApi.likePost(postId, MY_USER_ID) : postApi.unlikePost(postId, MY_USER_ID);
+function changeLike(userId, { postId, liked }) {
+  return liked ? postApi.likePost(postId, userId) : postApi.unlikePost(postId, userId);
 }
 
 // 받아 둔 페이지들을 돌며 게시물 하나만 바꾼 새 데이터를 만든다.
@@ -20,14 +19,17 @@ function changePost(data, postId, change) {
   };
 }
 
-export function useLikePost() {
+// userId 는 지금 보는 사람 — 목록을 받은 FeedList 가 카드에 내려 준다.
+export function useLikePost(userId) {
   const queryClient = useQueryClient();
+  // 피드 목록과 같은 키 — 보는 사람의 번호까지 맞아야 같은 캐시다.
+  const postsKey = ["posts", userId];
 
   return useMutation({
-    mutationFn: changeLike,
+    mutationFn: (variables) => changeLike(userId, variables),
     onMutate: async (variables) => {
-      await queryClient.cancelQueries({ queryKey: ["posts"] });
-      const previousPosts = queryClient.getQueryData(["posts"]);
+      await queryClient.cancelQueries({ queryKey: postsKey });
+      const previousPosts = queryClient.getQueryData(postsKey);
 
       queryClient.setQueryData(["posts"], (data) =>
         changePost(data, variables.postId, (post) => ({
